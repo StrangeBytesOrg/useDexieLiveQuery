@@ -1,59 +1,21 @@
 # useDexieLiveQuery
 [Dexie](https://dexie.org) integration for Vue 3
 
-### Peer dependencies
+### Install
 ```shell
-npm install dexie
+npm install @strangebytes/vue-dexie-live-query
 ```
 
 ## Examples
 
 ```typescript
-import { useDexieLiveQuery } from './utils/useDexieLiveQuery';
+import {useDexieLiveQuery} from '@strangebytes/vue-dexie-live-query'
 
 
-const allTodos = useDexieLiveQuery(
-  () => db.todos.toArray(),
-  { initialValue: [] }
-);
+const allTodos = await useDexieLiveQuery(() => db.todos.toArray())
 
-
-// Loaded status
-
-const { todos, loaded } = useDexieLiveQuery(
-  () => db.todos.toArray().then(todos => ({ todos, loaded: true })),
-  { initialValue: { todos: [], loaded: false } }
-);
 ```
 
-### With deps
-
-```typescript
-import { useDexieLiveQuery, useDexieLiveQueryWithDeps } from './utils/useDexieLiveQuery';
-import { ref } from 'vue';
-
-
-const activeListId = useDexieLiveQuery(() => db.keyval.get('activeListId').then(res => res?.value));
-
-// Alternative to watch (https://vuejs.org/api/reactivity-core.html#watch),
-// but you should return the request function in the callback
-
-const sortedTodos = useDexieLiveQueryWithDeps(activeListId, (activeListId: string | undefined) => {
-  return db.todos.where('listId').equals(activeListId).toArray();
-}, {
-  initialValue: [],
-  /* Supported all watch options, default: immediate: true */
-});
-
-
-// Multiple deps
-
-const offset = ref<number>(15);
-const limit = ref<number>(15);
-
-const limitedTodos = useDexieLiveQueryWithDeps(
-  [offset, limit],
-  ([offset, limit]: [number, number]) => db.todos.offset(offset).limit(limit).toArray(),
-  { initialValue: [] }
-);
-```
+## Acknowledgement
+Based on implementation from [devweissmikhail](https://github.com/devweissmikhail/useDexieLiveQuery)
+Modified to enable async initial load

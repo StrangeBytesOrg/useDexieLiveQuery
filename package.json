@@ -1,0 +1,20 @@
+{
+    "name": "@strangebytes/vue-dexie-live-query",
+    "version": "0.1.0",
+    "type": "module",
+    "main": "useDexieLiveQuery.ts",
+    "description": "Dexie integration for Vue 3",
+    "author": "Strange Bytes",
+	"license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/StrangeBytesOrg/useDexieLiveQuery"
+    },
+    "bugs": {
+        "url": "https://github.com/StrangeBytesOrg/useDexieLiveQuery/issues"
+    },
+    "dependencies": {
+        "dexie": "^4.0.11",
+        "vue": "^3.5.13"
+    }
+}
